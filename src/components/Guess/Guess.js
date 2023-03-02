@@ -2,6 +2,12 @@ import React from "react";
 import { range } from "../../utils";
 import { checkGuess } from "../../game-helpers";
 
+function Cell({ letter, status }) {
+  const cellClasses = ["cell", status || ""].filter((c) => !!c).join(" ");
+
+  return <span className={cellClasses}>{letter || ""}</span>;
+}
+
 function Guess({ value, answer }) {
   const cells = range(5);
   const checkedGuessLetters = value ? checkGuess(value.guess, answer) : [];
@@ -9,18 +15,9 @@ function Guess({ value, answer }) {
   return (
     <p className="guess">
       {cells.map((_, idx) => {
-        const cellClasses = [
-          "cell",
-          checkedGuessLetters[idx] ? checkedGuessLetters[idx].status : "",
-        ]
-          .filter((c) => !!c)
-          .join(" ");
+        const { letter, status } = checkedGuessLetters[idx] || {};
 
-        return (
-          <span key={idx} className={cellClasses}>
-            {checkedGuessLetters[idx] ? checkedGuessLetters[idx].letter : ""}
-          </span>
-        );
+        return <Cell letter={letter} status={status} />;
       })}
     </p>
   );
