@@ -1,17 +1,27 @@
 import React from "react";
 import { range } from "../../utils";
+import { checkGuess } from "../../game-helpers";
 
-function Guess({ value }) {
+function Guess({ value, answer }) {
   const cells = range(5);
-  const letters = value ? value.guess.split("") : [];
+  const checkedGuessLetters = value ? checkGuess(value.guess, answer) : [];
 
   return (
     <p className="guess">
-      {cells.map((_, idx) => (
-        <span key={idx} className="cell">
-          {letters[idx] || ""}
-        </span>
-      ))}
+      {cells.map((_, idx) => {
+        const cellClasses = [
+          "cell",
+          checkedGuessLetters[idx] ? checkedGuessLetters[idx].status : "",
+        ]
+          .filter((c) => !!c)
+          .join(" ");
+
+        return (
+          <span key={idx} className={cellClasses}>
+            {checkedGuessLetters[idx] ? checkedGuessLetters[idx].letter : ""}
+          </span>
+        );
+      })}
     </p>
   );
 }
