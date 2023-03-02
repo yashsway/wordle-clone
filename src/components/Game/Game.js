@@ -28,18 +28,17 @@ function Game() {
       guess,
       checkedGuess: checkGuess(guess, answer) || [],
     };
+    const nextGuesses = [...guesses, newGuess];
 
     // update the guessest first
-    setGuesses((prevGuesses) => [...prevGuesses, newGuess]);
+    setGuesses(nextGuesses);
 
     // if every letter in the guess is correct, the player has won
-    if (newGuess.toUpperCase() === answer.toUpperCase()) {
+    if (guess.toUpperCase() === answer.toUpperCase()) {
       setGameStatus("won");
       return;
-    }
-
-    // if this is the last possible guess, the player has lost
-    if (guesses.length + 1 >= NUM_OF_GUESSES_ALLOWED) {
+    } else if (nextGuesses.length >= NUM_OF_GUESSES_ALLOWED) {
+      // if this is the last possible guess, the player has lost
       setGameStatus("lost");
     }
 
