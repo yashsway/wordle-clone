@@ -17,7 +17,7 @@ function Guess({ value, answer }) {
       {cells.map((_, idx) => {
         const { letter, status } = checkedGuessLetters[idx] || {};
 
-        return <Cell letter={letter} status={status} />;
+        return <Cell key={idx} letter={letter} status={status} />;
       })}
     </p>
   );
