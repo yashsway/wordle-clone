@@ -7,7 +7,7 @@ import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import GuessInput from "../GuessInput";
 import GuessResults from "../GuessResults";
-import GameCompleteBanner from "../GameCompleteBanner";
+import Banner from "../Banner";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -49,8 +49,23 @@ function Game() {
     <>
       <GuessResults guesses={guesses} />
       <GuessInput addNewGuess={addNewGuess} isGameComplete={!isPlaying} />
-      {!isPlaying && (
-        <GameCompleteBanner hasWon={hasWon} guesses={guesses} answer={answer} />
+      {hasWon && (
+        <Banner className="happy">
+          <p>
+            <strong>Congratulations!</strong> Got it in{" "}
+            <strong>
+              {guesses.length === 1 ? "1 guess" : `${guesses.length} guesses`}
+            </strong>
+            .
+          </p>
+        </Banner>
+      )}
+      {!hasWon && !isPlaying && (
+        <Banner className="sad">
+          <p>
+            Sorry, the correct answer is <strong>{answer}</strong>.
+          </p>
+        </Banner>
       )}
     </>
   );

@@ -1,8 +1,8 @@
 import React from "react";
-import { range } from "../../utils";
+import { clsx, range } from "../../utils";
 
 function Cell({ letter, status }) {
-  const cellClasses = ["cell", status || ""].filter((c) => !!c).join(" ");
+  const cellClasses = clsx(["cell", status || ""]);
 
   return <span className={cellClasses}>{letter || ""}</span>;
 }
