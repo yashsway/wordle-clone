@@ -6,7 +6,10 @@ function GameCompleteBanner({ hasWon, answer, guesses }) {
       <div className="happy banner">
         <p>
           <strong>Congratulations!</strong> Got it in{" "}
-          <strong>{guesses.length} guesses</strong>.
+          <strong>
+            {guesses.length === 1 ? "1 guess" : `${guesses.length} guesses`}
+          </strong>
+          .
         </p>
       </div>
     );
