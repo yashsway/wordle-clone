@@ -1,6 +1,5 @@
 import React from "react";
 import { range } from "../../utils";
-import { checkGuess } from "../../game-helpers";
 
 function Cell({ letter, status }) {
   const cellClasses = ["cell", status || ""].filter((c) => !!c).join(" ");
@@ -8,9 +7,9 @@ function Cell({ letter, status }) {
   return <span className={cellClasses}>{letter || ""}</span>;
 }
 
-function Guess({ value, answer }) {
+function Guess({ value }) {
   const cells = range(5);
-  const checkedGuessLetters = value ? checkGuess(value.guess, answer) : [];
+  const checkedGuessLetters = value ? value.checkedGuess : [];
 
   return (
     <p className="guess">
