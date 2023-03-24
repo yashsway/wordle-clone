@@ -237,6 +237,11 @@ h1 {
   font-weight: bold;
   font-size: 20px;
 }
+.key:focus {
+  outline: 2px solid var(--color-gray-300);
+  outline-offset: 2px;
+  background: var(--color-gray-700);
+}
 .key.correct {
   color: white;
   background: var(--color-success);
