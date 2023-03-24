@@ -255,6 +255,16 @@ h1 {
   background: var(--color-warning);
 }
 
+.restart-btn {
+  display: inline-block;
+  border: 1px solid white;
+  padding: 10px 15px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
 /*
   Keyframe animations
 */

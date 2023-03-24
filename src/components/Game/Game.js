@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { sample } from "../../utils";
 import { checkGuess } from "../../game-helpers";
@@ -9,13 +9,11 @@ import GuessInput from "../GuessInput";
 import GuessResults from "../GuessResults";
 import Banner from "../Banner";
 import Keyboard from "../Keyboard";
-
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+import RestartButton from "../RestartButton";
 
 function Game() {
+  // pick a random word as the answer
+  const [answer, setAnswer] = React.useState(() => sample(WORDS));
   const [guesses, setGuesses] = React.useState([]);
   const [gameStatus, setGameStatus] = React.useState("playing"); // one of 'won', 'lost', or 'playing'
   const [potentialGuess, setPotentialGuess] = React.useState("");
@@ -59,6 +57,18 @@ function Game() {
     setPotentialGuess(newPotentialGuess);
   };
 
+  const handleRestart = () => {
+    setAnswer(sample(WORDS));
+    setGuesses([]);
+    setPotentialGuess("");
+    setGameStatus("playing");
+  };
+
+  // To make debugging easier, we'll log the solution in the console.
+  useEffect(() => {
+    console.info({ answer });
+  }, [answer]);
+
   return (
     <>
       <GuessResults guesses={guesses} />
@@ -70,20 +80,22 @@ function Game() {
       <Keyboard guesses={guesses} handleKeyPress={handleKeyPress} />
       {hasWon && (
         <Banner className="happy">
-          <p>
+          <p style={{ display: "inline-block" }}>
             <strong>Congratulations!</strong> Got it in{" "}
             <strong>
               {guesses.length === 1 ? "1 guess" : `${guesses.length} guesses`}
             </strong>
             .
           </p>
+          <RestartButton handleClick={handleRestart} className="ml-10" />
         </Banner>
       )}
       {!hasWon && !isPlaying && (
         <Banner className="sad">
-          <p>
+          <p style={{ display: "inline-block" }}>
             Sorry, the correct answer is <strong>{answer}</strong>.
           </p>
+          <RestartButton handleClick={handleRestart} className="ml-10" />
         </Banner>
       )}
     </>
