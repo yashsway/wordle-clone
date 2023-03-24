@@ -1,7 +1,7 @@
 import React from "react";
 import Key from "../Key";
 
-function Keyboard({ guesses }) {
+function Keyboard({ guesses, addNewGuess, handleKeyPress }) {
   const keysByRow = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
   const guessesLettersMap =
     guesses
@@ -29,6 +29,7 @@ function Keyboard({ guesses }) {
                 key={letter}
                 letter={letter}
                 status={guessesLettersMap[letter.toUpperCase()]}
+                handleClick={handleKeyPress}
               />
             );
           })}
